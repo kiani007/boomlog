@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Setup
 
-## Getting Started
+## Local Setup Instructions
 
-First, run the development server:
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/kiani007/boomlog.git
+   cd your-repo-name
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Install Dependencies**
+   Make sure you have Node.js installed, then run:
+   ```bash
+   npm install
+   ```
+   ***Remember to put Clerk Secret Keys in .env file***
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Configure Environment Variables**
+   Create a `.env` file in the root directory and add your database connection string:
+   There is example.env copy the list of evoinrment variable and paste yours in .env file
+   ```
+    DATABASE_URL="Your DATABASE_URL"
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="Your Key"
+    CLERK_SECRET_KEY= 
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   
+   
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Run Migrations**
+   Use Prisma to run migrations and set up your database schema:
+   ```bash
+   npm run prisma:generate
+   npm run prisma:migrate
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. **Start the Development Server**
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+## Prisma Schema and Server Actions
 
-To learn more about Next.js, take a look at the following resources:
+- **Prisma Schema**: The schema consists of several models such as `User`, `Post`, and `Event`. Each model is defined with fields and their types, as well as relationships between models.
+  
+- **Server Actions**: The server-side logic includes functions for creating users, logging events, and managing posts. These functions interact with the database using Prisma.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Logging Events and Fetching Analytics
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Log Events**: Use the `logEvent` function to record user interactions like views, likes, and comments. It takes parameters such as event type, post ID, and user ID.
 
-## Deploy on Vercel
+- **Fetch Analytics**: The `fetchAnalytics` function aggregates event data to provide insights into post interactions. It groups events by post ID and counts occurrences.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Pagination Implementation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Pagination Component**: The `Pagination` component manages navigation through pages of posts. It provides "Prev" and "Next" buttons and displays the current page number.
+  
+- **Usage**: Include the `Pagination` component in your posts page, passing `currentPage` and `totalPages` as props to enable navigation.
+
+## Additional Notes
+
+- Ensure your database is running and accessible with the connection string provided in the `.env` file.
+- Customize Tailwind CSS and other styling as needed in the `tailwind.config.ts` and `globals.css`.
+- Use server actions carefully, ensuring security and validation of data before processing.
+
+
