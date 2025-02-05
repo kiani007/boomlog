@@ -1,7 +1,7 @@
 'use client'
 
+import { SignInButton, SignUpButton } from '@clerk/nextjs'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 
 const BannerSection = () => {
   return (
@@ -17,18 +17,16 @@ const BannerSection = () => {
         Your go-to platform for blogging and sharing your stories.
       </p>
       <div className="flex space-x-4">
-        <Link 
-          href="/sign-up" 
+        <div  
           className="bg-white text-indigo-500 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-colors"
         >
-          Sign Up
-        </Link>
-        <Link 
-          href="/sign-in" 
+          <SignInButton />
+        </div>
+        <div
           className="bg-white text-indigo-500 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-colors"
         >
-          Log In
-        </Link>
+          <SignUpButton />
+        </div>
       </div>
     </motion.div> 
   </section>

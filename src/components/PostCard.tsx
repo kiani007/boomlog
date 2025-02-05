@@ -28,8 +28,6 @@ export function PostCard({ post, handleEventLog }: Props) {
     handleEventLog?.(post?.id);
   };
 
-  console.log(post);
-
   return (
     <Link href={`/posts/${post?.id}`} onClick={handleClick}>
       <motion.div 

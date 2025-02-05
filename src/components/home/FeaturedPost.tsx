@@ -27,7 +27,7 @@ export default function FeaturedPost() {
                   A brief description of the featured post. Learn more about the topic and dive in!
                 </p>
                 <Link 
-                  href={`/posts/post-${post}`} 
+                  href={`/posts/${post}`} 
                   className="text-indigo-500 font-semibold"
                 >
                   Read More

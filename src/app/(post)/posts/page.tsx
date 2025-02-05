@@ -5,18 +5,19 @@ import Link from "next/link";
 import { logEvent, EventType } from "@/lib/prisma-db";
 
 
-
-const Posts = async ({searchParams}: {searchParams?: Promise<{ page?: string}> }) => {
-  
+const Posts = async ({ searchParams }: { searchParams?: Promise<{ page?: string }> }) => {
   const page = Number((await searchParams)?.page) || 1;
   const limit = 10;
 
-  const { posts, totalPosts } = await fetchPosts(page, limit);
+  const [{ posts, totalPosts }, handleEventLog] = await Promise.all([
+    fetchPosts(page, limit),
+    (async (id: number) => {
+      'use server';
+      await logEvent(EventType.VIEW, id, '1');
+    })
+  ]);
+
   const totalPages = Math.ceil(totalPosts / limit);
-  const handleEventLog = async (id: number) => {
-    'use server';
-     await logEvent(EventType.VIEW, id, '1');
-  }
 
   return (
     <div className="container mx-auto p-4 mt-8">
